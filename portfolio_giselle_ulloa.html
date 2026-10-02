@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giselle Ulloa | Tech Content · Community · AI & Cloud</title>
+    <meta name="description" content="Software Engineer especializada en conectar tecnología, contenido y comunidad. Construyendo historias alrededor de AI, Cloud, startups y ecosistemas tecnológicos.">
+    <meta name="author" content="Giselle Ulloa">
+    
+    <!-- Open Graph / LinkedIn Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://giselleulloa.portfolio/">
+    <meta property="og:title" content="Giselle Ulloa | Tech Content · Community · AI & Cloud">
+    <meta property="og:description" content="Conecto tecnología, contenido y comunidad para convertir ideas en historias. Portfolio profesional de estrategias de contenido, eventos tecnológicos y community building.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6', // Teal
+                            600: '#0d9488',
+                            900: '#134e4a',
+                            950: '#042f2e',
+                        },
+                        dark: '#0f172a' // Slate 900
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite alternate',
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '100%': { transform: 'translate(30px, 50px) scale(1.1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            'from': { backgroundPosition: '200% 0' },
+                            'to': { backgroundPosition: '-200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base & Smoothing */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f8fafc;
+        }
+        
+        /* Glass Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Scroll Reveal System */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animation Delays for Staggering */
+        .delay-100 { animation-delay: 100ms; transition-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; transition-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; transition-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; transition-delay: 400ms; }
+
+        /* Premium Case Cards */
+        .case-card {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .case-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(13, 148, 136, 0.15), 0 0 0 1px rgba(13, 148, 136, 0.1);
+        }
+        .case-card img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .case-card:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Gradients */
+        .text-gradient-brand {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #0d9488, #2563eb, #0d9488);
+            background-size: 200% auto;
+            animation: shimmer 4s linear infinite;
+        }
+
+        /* Connecting Line for Process */
+        .process-line::after {
+            content: '';
+            position: absolute;
+            top: 48px;
+            bottom: -24px;
+            left: 24px;
+            width: 2px;
+            background: linear-gradient(to bottom, #e2e8f0, transparent);
+            z-index: 0;
+        }
+        @media (min-width: 768px) {
+            .process-line::after {
+                top: 24px;
+                left: 24px;
+                right: -24px;
+                bottom: auto;
+                height: 2px;
+                width: 100%;
+                background: linear-gradient(to right, #e2e8f0, transparent);
+            }
+        }
+        .process-step:last-child .process-line::after {
+            display: none;
+        }
+
+        /* Button hover states */
+        .btn-hover-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-hover-effect::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        .btn-hover-effect:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="text-slate-800 selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 glass-nav" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 transition-all duration-300" id="nav-content">
+                <!-- Logo -->
+                <a href="#" class="font-display font-bold text-xl tracking-tight text-dark flex items-center gap-2 group">
+                    <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-dark to-slate-700 text-white flex items-center justify-center text-sm transition-transform group-hover:scale-110 shadow-md">GU</span>
+                    Giselle Ulloa
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#work" class="text-sm font-medium text-slate-500 hover:text-brand-600 transition-colors">Work</a>
+                    <a href="#about" class="text-sm font-medium text-slate-500 hover:text-brand-600 transition-colors">About</a>
+                    <a href="#content-formats" class="text-sm font-medium text-slate-500 hover:text-brand-600 transition-colors">Content</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-dark text-white text-sm font-medium hover:bg-brand-600 transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-brand-500/20 transform hover:-translate-y-0.5">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-600 focus:outline-none p-2 transition-colors" aria-label="Toggle Menu">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 absolute w-full shadow-2xl origin-top transition-all">
+            <div class="px-4 pt-4 pb-8 space-y-2">
+                <a href="#work" class="block px-4 py-3 text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-colors">Work</a>
+                <a href="#about" class="block px-4 py-3 text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-colors">About</a>
+                <a href="#content-formats" class="block px-4 py-3 text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 rounded-xl transition-colors">Content</a>
+                <a href="#contact" class="block px-4 py-3 text-base font-medium text-white bg-dark hover:bg-brand-600 rounded-xl transition-colors mt-4 text-center">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        
+        <section id="hero" class="relative pt-32 pb-16 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
+            <!-- Animated Background Blobs -->
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-100/50 rounded-full mix-blend-multiply filter blur-[80px] animate-blob"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-100/50 rounded-full mix-blend-multiply filter blur-[80px] animate-blob" style="animation-delay: 2s;"></div>
+            
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center text-center">
+                
+                <!-- Badge -->
+                <div class="opacity-0 animate-fade-in-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/60 shadow-sm text-xs font-semibold tracking-wide text-slate-600 uppercase mb-8 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Software Engineer · Storyteller
+                </div>
+                
+                <!-- Headlines -->
+                <h1 class="opacity-0 animate-fade-in-up delay-100 font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tight leading-[1.05] text-dark mb-8">
+                    <span class="block hover:scale-[1.02] transition-transform duration-300">TECH CONTENT</span>
+                    <span class="block text-slate-300 hover:scale-[1.02] transition-transform duration-300">COMMUNITY</span>
+                    <span class="block text-gradient-brand hover:scale-[1.02] transition-transform duration-300">AI & CLOUD</span>
+                </h1>
+                
+                <!-- Description -->
+                <p class="opacity-0 animate-fade-in-up delay-200 text-lg sm:text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-light">
+                    "Conecto tecnología, contenido y comunidad para convertir ideas, proyectos e iniciativas en historias que las personas puedan entender y recordar."
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="opacity-0 animate-fade-in-up delay-300 mt-12 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+                    <a href="#work" class="btn-hover-effect inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full bg-dark text-white font-medium hover:bg-brand-600 transition-all duration-300 shadow-xl shadow-slate-900/10 w-full sm:w-auto group">
+                        VER MI TRABAJO
+                        <i class="ph ph-arrow-down-right text-lg group-hover:translate-y-1 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/giselleulloa/" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-full bg-white/80 backdrop-blur-sm text-dark font-medium border border-slate-200 hover:border-brand-500 hover:text-brand-600 transition-all duration-300 w-full sm:w-auto group">
+                        <i class="ph-fill ph-linkedin-logo text-xl text-[#0A66C2] group-hover:scale-110 transition-transform"></i>
+                        LINKEDIN
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 md:py-32 bg-white relative">
+            <div class="absolute inset-0 bg-slate-50/50 skew-y-3 transform origin-bottom-left -z-10"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll text-center">
+                <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-dark mb-8 leading-tight">
+                    TECHNOLOGY <span class="text-brand-300 mx-1 md:mx-2">+</span> CONTENT <span class="text-brand-300 mx-1 md:mx-2">+</span> COMMUNITY
+                </h2>
+                <div class="prose prose-base sm:prose-lg text-slate-600 mx-auto">
+                    <p class="leading-relaxed">
+                        Soy Software Engineer con experiencia construyendo y comunicando proyectos tecnológicos, liderando comunidades y creando experiencias alrededor de la tecnología.
+                    </p>
+                    <p class="leading-relaxed mt-4">
+                        Mi perfil combina conocimiento técnico profundo con comunicación, storytelling, organización de eventos y community building. <strong>Entiendo la tecnología desde su arquitectura interna</strong> y la transformo en contenido estratégico, claro y de valor para diversas audiencias.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="py-20 md:py-32 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="mb-16 md:mb-20 reveal-on-scroll text-center md:text-left">
+                    <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-dark mb-6 tracking-tight">SELECTED WORK</h2>
+                    <p class="text-lg md:text-xl text-slate-500 font-light">Contenido, comunidad y experiencias que he ayudado a construir.</p>
+                </div>
+
+                <!-- Bento Grid Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    
+                    <!-- CASE 01: GDG CARTAGENA -->
+                    <a href="https://gdg.community.dev/gdg-cartagena/" target="_blank" rel="noopener noreferrer" class="case-card group col-span-1 md:col-span-2 lg:col-span-2 rounded-3xl overflow-hidden border border-slate-200 reveal-on-scroll flex flex-col sm:flex-row h-full">
+                        <div class="w-full sm:w-2/5 h-64 sm:h-auto relative overflow-hidden bg-slate-100 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="GDG Cartagena Event" class="object-cover w-full h-full">
+                            <div class="absolute top-5 left-5 z-10">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 01</span>
+                            </div>
+                        </div>
+                        <div class="p-8 sm:p-10 flex flex-col flex-grow justify-center bg-white">
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="text-[10px] font-bold tracking-wider text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">COMMUNITY</span>
+                                <span class="text-[10px] font-bold tracking-wider text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">CONTENT</span>
+                            </div>
+                            <h3 class="font-display text-2xl sm:text-3xl font-bold text-dark mb-4 group-hover:text-brand-600 transition-colors">GDG Cartagena</h3>
+                            <p class="text-slate-500 mb-8 text-base sm:text-lg leading-relaxed font-light flex-grow">
+                                "Como Lead Organizer de GDG Cartagena, participo en la construcción y comunicación de una comunidad tecnológica local activa."
+                            </p>
+                            <div class="mt-auto flex items-center text-sm font-bold tracking-wide text-dark group-hover:text-brand-600">
+                                EXPLORAR COMUNIDAD <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- CASE 02: DEVFEST -->
+                    <a href="https://gdg.community.dev/events/details/google-gdg-cartagena-presents-devfest-cartagena-2026/" target="_blank" rel="noopener noreferrer" class="case-card group col-span-1 bg-white rounded-3xl overflow-hidden border border-slate-200 reveal-on-scroll delay-100 flex flex-col h-full">
+                        <div class="h-56 relative overflow-hidden bg-slate-100 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="DevFest Stage" class="object-cover w-full h-full">
+                            <div class="absolute top-5 left-5 z-10">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 02</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-bold tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md">EVENT CONTENT</span>
+                            </div>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-dark mb-3 group-hover:text-purple-600 transition-colors">DevFest Cartagena</h3>
+                            <p class="text-slate-500 text-base mb-6 font-light flex-grow">
+                                Comunicación y construcción de comunidad alrededor del evento principal de Google Developers.
+                            </p>
+                            <div class="mt-auto flex items-center text-sm font-bold tracking-wide text-dark group-hover:text-purple-600">
+                                VER EVENTO <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- CASE 03: ANDICOM 2026 -->
+                    <div class="case-card group col-span-1 md:col-span-2 lg:col-span-2 bg-dark text-white rounded-3xl overflow-hidden reveal-on-scroll flex flex-col relative shadow-2xl shadow-slate-900/20 h-full">
+                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Panel Stage" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay z-0">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-dark via-dark/95 to-brand-900/80 z-0"></div>
+                        
+                        <div class="p-8 sm:p-10 flex flex-col flex-grow relative z-10">
+                            <div class="flex flex-wrap items-center gap-3 mb-8">
+                                <span class="px-3 py-1.5 bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md border border-white/20">CASE 03</span>
+                                <span class="px-3 py-1.5 bg-brand-500/20 text-brand-300 text-[10px] font-bold uppercase tracking-widest rounded-full border border-brand-500/30">PANELISTA</span>
+                            </div>
+                            
+                            <h3 class="font-display text-3xl sm:text-4xl font-bold mb-5 leading-tight">ANDICOM 2026 × Unión Europea × ONU × OIT</h3>
+                            
+                            <div class="space-y-4 mb-10 flex-grow font-light">
+                                <p class="text-slate-200 text-base sm:text-lg leading-relaxed">
+                                    Participación como panelista en una conversación estratégica de la Unión Europea sobre talento digital, inteligencia artificial y el futuro del trabajo para las juventudes.
+                                </p>
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed hidden sm:block">
+                                    Avanzando hacia una agenda digital conjunta entre Colombia, América Latina y Europa para ampliar las oportunidades de innovación y empleo digital.
+                                </p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-auto">
+                                <a href="https://www.linkedin.com/posts/giselleulloa_andicom2026-talentodigital-empleodigital-ugcPost-7501111153268457473-CTde/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-[#0A66C2] hover:bg-[#004182] text-white text-sm font-semibold rounded-full transition-colors">
+                                    <i class="ph-fill ph-linkedin-logo text-lg"></i> Post de LinkedIn
+                                </a>
+                                <a href="https://www.instagram.com/p/Dc1O6RckSmA/?img_index=1" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold rounded-full transition-colors">
+                                    <i class="ph-fill ph-instagram-logo text-lg"></i> Galería Instagram
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CASE 04: PROGRAMATÓN -->
+                    <a href="https://gdg.community.dev/events/details/google-gdg-cartagena-presents-hackathon-express-programaton-aprende-crea-y-compite/" target="_blank" rel="noopener noreferrer" class="case-card group col-span-1 bg-white rounded-3xl overflow-hidden border border-slate-200 reveal-on-scroll delay-100 flex flex-col h-full">
+                        <div class="h-56 relative overflow-hidden bg-slate-800 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Hackathon Coding" class="object-cover w-full h-full opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent"></div>
+                            <div class="absolute top-5 left-5 z-10">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 04</span>
+                            </div>
+                            <div class="absolute bottom-5 left-5 z-10">
+                                <h3 class="font-display text-xl font-bold text-white">Programatón 2026</h3>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-bold tracking-wider text-orange-600 bg-orange-50 px-2.5 py-1 rounded-md">STORYTELLING</span>
+                            </div>
+                            <p class="text-slate-500 text-base mb-6 font-light flex-grow">
+                                Iniciativa que conecta formación, mentoría y desarrollo colaborativo de soluciones (Hackathon en Tierra Bomba).
+                            </p>
+                            <div class="mt-auto flex items-center text-sm font-bold tracking-wide text-dark group-hover:text-brand-600">
+                                VER CASO <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- CASE 05: EVENT PRESENCE (Banner) -->
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white rounded-3xl overflow-hidden border border-slate-200 case-card reveal-on-scroll flex flex-col md:flex-row min-h-[350px]">
+                        <div class="w-full md:w-1/2 lg:w-2/5 h-72 md:h-auto relative overflow-hidden bg-slate-900 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Conferencia" class="object-cover w-full h-full opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-dark/80 to-transparent"></div>
+                            <div class="absolute top-5 left-5 z-20">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 05</span>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-12 flex flex-col flex-grow justify-center">
+                            <div class="flex flex-wrap gap-2 mb-5">
+                                <span class="text-[10px] font-bold tracking-wider text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">EVENT COVERAGE</span>
+                                <span class="text-[10px] font-bold tracking-wider text-brand-600 bg-brand-50 px-2.5 py-1 rounded-md">TECH PRESENCE</span>
+                            </div>
+                            <h3 class="font-display text-3xl font-bold text-dark mb-4">Tech Events & Conferences</h3>
+                            <p class="text-base sm:text-lg text-slate-500 mb-8 font-light max-w-2xl leading-relaxed">Presencia activa en congresos clave de tecnología e Inteligencia Artificial. Transformando la experiencia presencial del evento en contenido técnico y estratégico de alto valor.</p>
+                        </div>
+                    </div>
+
+                    <!-- CASE 06: NEWSLETTER -->
+                    <a href="https://www.linkedin.com/newsletters/mundo-tech-7124257289972170752/" target="_blank" rel="noopener noreferrer" class="case-card group col-span-1 bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col reveal-on-scroll h-full">
+                        <div class="h-56 relative overflow-hidden bg-slate-100 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Newsletter Writing" class="object-cover w-full h-full">
+                            <div class="absolute top-5 left-5 z-10">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 06</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">NEWSLETTER</span>
+                            </div>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-dark mb-3 group-hover:text-blue-600 transition-colors">Mundo Tech</h3>
+                            <p class="text-base text-slate-500 mb-6 font-light flex-grow">Artículos en profundidad y análisis sobre el ecosistema tecnológico, IA y Cloud.</p>
+                            <div class="mt-auto flex items-center text-sm font-bold tracking-wide text-dark group-hover:text-blue-600">
+                                LEER EN LINKEDIN <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- CASE 07: MEDIUM -->
+                    <a href="https://medium.com/@giulloa1" target="_blank" rel="noopener noreferrer" class="case-card group col-span-1 bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col reveal-on-scroll delay-100 h-full">
+                        <div class="h-56 relative overflow-hidden bg-slate-900 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Technical Blog" class="object-cover w-full h-full opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+                            <div class="absolute top-5 left-5 z-10">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 07</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col flex-grow">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-bold tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">TECH ARTICLES</span>
+                            </div>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-dark mb-3 group-hover:text-slate-600 transition-colors">Medium Blog</h3>
+                            <p class="text-base text-slate-500 mb-6 font-light flex-grow">Redacción técnica de formato largo enfocada en desarrollo de software e ingeniería.</p>
+                            <div class="mt-auto flex items-center text-sm font-bold tracking-wide text-dark group-hover:text-slate-600">
+                                LEER EN MEDIUM <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- CASE 08: PODCAST -->
+                    <div class="col-span-1 bg-gradient-to-br from-slate-900 to-brand-950 rounded-3xl overflow-hidden text-white reveal-on-scroll delay-200 relative flex flex-col shadow-xl case-card group h-full">
+                        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Podcast" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity z-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent z-0"></div>
+                        
+                        <div class="p-8 flex flex-col flex-grow relative z-10">
+                            <div class="mb-6">
+                                <span class="px-3 py-1.5 bg-brand-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg shadow-brand-500/30 animate-pulse">COMING SOON</span>
+                            </div>
+                            <h3 class="font-display text-2xl font-bold mb-3">ByGiselleTech Podcast</h3>
+                            <p class="text-slate-300 text-base mb-8 font-light flex-grow">Expandiendo formatos: Historias de tecnología y ecosistema en audio y video.</p>
+                            
+                            <div class="flex flex-col gap-3 mt-auto">
+                                <a href="https://www.instagram.com/bygiselletech/" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 transition-colors rounded-xl border border-white/20 text-sm font-semibold backdrop-blur-md">
+                                    <i class="ph ph-instagram-logo text-xl"></i> @bygiselletech
+                                </a>
+                                <span class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-white/5 opacity-50 rounded-xl border border-white/5 text-sm font-semibold cursor-not-allowed backdrop-blur-md">
+                                    <i class="ph-fill ph-spotify-logo text-xl"></i> Próximamente
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COMMUNITIES WRAPPER -->
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 reveal-on-scroll">
+                        
+                        <!-- CASE 09A: Women Techmakers -->
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7509007809624031232/" target="_blank" rel="noopener noreferrer" class="group bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col case-card h-full">
+                            <div class="h-56 relative overflow-hidden bg-brand-100 shrink-0">
+                                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Women in Tech" class="object-cover w-full h-full opacity-90">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 z-10 flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center">
+                                        <i class="ph-fill ph-users-three text-lg"></i>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-white uppercase tracking-widest">COMMUNITY</span>
+                                </div>
+                            </div>
+                            <div class="p-8 flex flex-col flex-grow relative bg-white">
+                                <div class="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 text-brand-600">
+                                    <i class="ph ph-arrow-up-right text-2xl"></i>
+                                </div>
+                                <h3 class="font-display font-bold text-dark text-2xl mb-3 group-hover:text-brand-600 transition-colors">Women Techmakers</h3>
+                                <p class="text-base text-slate-500 font-light">Ambassador 2026. Construcción de comunidad e impulso a la participación de mujeres en tecnología.</p>
+                            </div>
+                        </a>
+
+                        <!-- CASE 09B: PionerasDev -->
+                        <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 flex flex-col case-card h-full">
+                            <div class="h-56 relative overflow-hidden bg-purple-100 shrink-0">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team Collaboration" class="object-cover w-full h-full opacity-90">
+                                <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 z-10 flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/20 backdrop-blur-md text-white rounded-full flex items-center justify-center">
+                                        <i class="ph-fill ph-rocket-launch text-lg"></i>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-white uppercase tracking-widest">WOMEN IN TECH</span>
+                                </div>
+                            </div>
+                            <div class="p-8 flex flex-col flex-grow bg-white">
+                                <h3 class="font-display font-bold text-dark text-2xl mb-3">PionerasDev</h3>
+                                <p class="text-base text-slate-500 font-light">Leader (Desde 2024). Fortalecimiento del liderazgo técnico femenino y construcción de espacios seguros.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CASE 10: INSTAGRAM (Capstone) -->
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white rounded-3xl overflow-hidden border border-slate-200 case-card reveal-on-scroll flex flex-col md:flex-row mt-4">
+                        
+                        <div class="w-full md:w-2/5 lg:w-1/3 h-64 md:h-auto relative overflow-hidden bg-slate-900 shrink-0">
+                            <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Content Creation" class="object-cover w-full h-full opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-dark/70 to-transparent z-10"></div>
+                            <div class="absolute top-5 left-5 z-20">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-widest rounded-full text-slate-800 shadow-sm">CASE 10</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-3/5 lg:w-2/3 p-8 md:p-10 flex flex-col flex-grow justify-center">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[10px] font-bold tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">ECOSYSTEM PRESENCE</span>
+                            </div>
+                            
+                            <h3 class="font-display text-3xl font-bold text-dark mb-4">Lente en el Ecosistema Tech</h3>
+                            
+                            <p class="text-base text-slate-500 mb-8 font-light max-w-3xl leading-relaxed">
+                                Mi cuenta es un espacio donde documento mi experiencia. Creo contenido a partir de eventos, tecnología y comunidad, combinando información técnica con una perspectiva personal sobre la industria.
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-8">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0"></div>
+                                    <span class="text-sm text-slate-600 font-medium">Cobertura en eventos tecnológicos</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0"></div>
+                                    <span class="text-sm text-slate-600 font-medium">IA, Cloud y nuevas tecnologías</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0"></div>
+                                    <span class="text-sm text-slate-600 font-medium">Historias de comunidades tech</span>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0"></div>
+                                    <span class="text-sm text-slate-600 font-medium">Conferencias y networking</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto">
+                                <a href="https://www.instagram.com/giulloa/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-bold tracking-wide text-dark hover:text-brand-600 transition-colors group">
+                                    VISITAR PERFIL <i class="ph ph-arrow-right ml-2 group-hover:translate-x-2 transition-transform duration-300"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="content-formats" class="py-20 md:py-32 bg-slate-900 text-white overflow-hidden relative">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+                    
+                    <!-- Formats -->
+                    <div class="reveal-on-scroll">
+                        <h2 class="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight">CONTENT FORMATS</h2>
+                        <p class="text-slate-400 mb-10 text-lg font-light">Experience + Formats I can adapt to</p>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-linkedin-logo"></i> LinkedIn
+                            </span>
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-envelope-simple"></i> Newsletter
+                            </span>
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-article"></i> Articles
+                            </span>
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-calendar-star"></i> Event Content
+                            </span>
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-users"></i> Community Content
+                            </span>
+                            <span class="px-5 py-2.5 bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/10 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph-fill ph-microphone-stage"></i> Speaker Content
+                            </span>
+                            
+                            <div class="w-full mt-6 mb-2">
+                                <p class="text-[10px] font-bold text-brand-400 uppercase tracking-widest">Expanding Formats</p>
+                            </div>
+                            <span class="px-5 py-2.5 bg-brand-900/30 border border-brand-500/30 text-brand-100 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph ph-instagram-logo"></i> Instagram (@bygiselletech)
+                            </span>
+                            <span class="px-5 py-2.5 bg-brand-900/30 border border-brand-500/30 text-brand-100 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph ph-headphones"></i> Podcast (Spotify)
+                            </span>
+                            <span class="px-5 py-2.5 bg-brand-900/30 border border-brand-500/30 text-brand-100 text-sm font-semibold rounded-full flex items-center gap-2 cursor-default">
+                                <i class="ph ph-youtube-logo"></i> YouTube
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Process Section -->
+                    <div class="reveal-on-scroll delay-200">
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold mb-8 tracking-tight">FROM TECHNOLOGY TO STORY</h2>
+                        <p class="text-slate-300 mb-12 italic border-l-4 border-brand-500 pl-6 py-2 text-lg font-light leading-relaxed">
+                            "No se trata solo de explicar tecnología. Se trata de entender qué estamos construyendo, por qué importa, quién necesita conocerlo y cuál es la mejor forma de contarlo."
+                        </p>
+
+                        <div class="relative flex flex-col md:flex-row justify-between gap-8 md:gap-4 pl-4 md:pl-0">
+                            
+                            <div class="process-step group relative flex md:flex-col items-center gap-5 md:gap-4 z-10 w-full md:w-1/4">
+                                <div class="process-line w-14 h-14 bg-slate-800 border border-slate-700 text-white rounded-full flex items-center justify-center font-display font-bold text-xl relative shrink-0 transition-all group-hover:bg-brand-500 group-hover:border-brand-400">1</div>
+                                <div class="text-left md:text-center">
+                                    <p class="text-[10px] font-bold text-brand-400 uppercase tracking-widest mb-1.5">Tech</p>
+                                    <p class="font-semibold text-sm text-white">Understand</p>
+                                </div>
+                            </div>
+                            
+                            <div class="process-step group relative flex md:flex-col items-center gap-5 md:gap-4 z-10 w-full md:w-1/4">
+                                <div class="process-line w-14 h-14 bg-slate-800 border border-slate-700 text-white rounded-full flex items-center justify-center font-display font-bold text-xl relative shrink-0 transition-all group-hover:bg-brand-500 group-hover:border-brand-400">2</div>
+                                <div class="text-left md:text-center">
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Core</p>
+                                    <p class="font-semibold text-sm text-white">Find the Story</p>
+                                </div>
+                            </div>
+
+                            <div class="process-step group relative flex md:flex-col items-center gap-5 md:gap-4 z-10 w-full md:w-1/4">
+                                <div class="process-line w-14 h-14 bg-slate-800 border border-slate-700 text-white rounded-full flex items-center justify-center font-display font-bold text-xl relative shrink-0 transition-all group-hover:bg-brand-500 group-hover:border-brand-400">3</div>
+                                <div class="text-left md:text-center">
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Media</p>
+                                    <p class="font-semibold text-sm text-white">Adapt Format</p>
+                                </div>
+                            </div>
+
+                            <div class="process-step group relative flex md:flex-col items-center gap-5 md:gap-4 z-10 w-full md:w-1/4">
+                                <div class="w-14 h-14 bg-brand-500 text-white rounded-full flex items-center justify-center font-display font-bold text-xl relative shrink-0 shadow-lg shadow-brand-500/50 transform group-hover:scale-110 transition-transform">4</div>
+                                <div class="text-left md:text-center">
+                                    <p class="text-[10px] font-bold text-brand-300 uppercase tracking-widest mb-1.5">Impact</p>
+                                    <p class="font-semibold text-sm text-white">Connect</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 bg-white border-t border-slate-200">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal-on-scroll">
+                
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-dark mb-6 tracking-tight">Let's build stories around technology.</h2>
+                <p class="text-slate-500 mb-12 text-lg md:text-xl font-light">Si estás buscando a alguien que entienda el código y sepa contar la historia.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-5 mb-20">
+                    <a href="mailto:giseulloa0@gmail.com" class="w-full sm:w-auto px-8 py-4 bg-brand-600 text-white rounded-full font-semibold hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/25 transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                        <i class="ph-fill ph-envelope-simple text-xl"></i>
+                        giseulloa0@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/giselleulloa/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-dark rounded-full font-semibold hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                        <i class="ph-fill ph-linkedin-logo text-xl text-[#0A66C2]"></i>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="border-t border-slate-100 pt-12">
+                    <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">FIND ME ONLINE</h3>
+                    <div class="flex flex-wrap justify-center gap-8 md:gap-12">
+                        <a href="https://www.linkedin.com/in/giselleulloa/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#0A66C2] transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-blue-50 transition-colors">
+                                <i class="ph-fill ph-linkedin-logo text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">LinkedIn</span>
+                        </a>
+                        <a href="https://www.instagram.com/giulloa/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#E1306C] transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-pink-50 transition-colors">
+                                <i class="ph-fill ph-instagram-logo text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Instagram</span>
+                        </a>
+                        <a href="https://www.linkedin.com/newsletters/mundo-tech-7124257289972170752/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brand-600 transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-brand-50 transition-colors">
+                                <i class="ph-fill ph-envelope-open text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Newsletter</span>
+                        </a>
+                        <a href="https://medium.com/@giulloa1" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-dark transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-slate-200 transition-colors">
+                                <i class="ph-fill ph-article text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Medium</span>
+                        </a>
+                        <a href="https://github.com/GiselleUlloa" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-dark transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-slate-200 transition-colors">
+                                <i class="ph-fill ph-github-logo text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">GitHub</span>
+                        </a>
+                        <a href="https://gdg.community.dev/gdg-cartagena/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#EA4335] transition-colors flex flex-col items-center gap-3 group">
+                            <div class="p-3 rounded-2xl bg-slate-50 group-hover:bg-red-50 transition-colors">
+                                <i class="ph-fill ph-google-logo text-2xl group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">GDG</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white py-8 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-dark text-white flex items-center justify-center text-[10px] font-bold">GU</span>
+                <span class="font-display font-bold text-dark text-sm tracking-wide">Giselle Ulloa</span>
+            </div>
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-xs sm:text-sm text-slate-500 font-medium">
+                <span class="flex items-center gap-1.5"><i class="ph-fill ph-map-pin text-brand-500"></i> Cartagena, Colombia</span>
+                <span class="hidden sm:inline text-slate-300">•</span>
+                <span class="flex items-center gap-1.5"><i class="ph-fill ph-globe text-brand-500"></i> Remote</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Navbar Transition on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click for better UX
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Advanced Intersection Observer for staggered scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add visible class to trigger CSS transition
+                    entry.target.classList.add('is-visible');
+                    // Stop observing once animated
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Target all elements with reveal-on-scroll class
+        document.querySelectorAll('.reveal-on-scroll').forEach((elem) => {
+            observer.observe(elem);
+        });
+    </script>
+</body>
+</html>
